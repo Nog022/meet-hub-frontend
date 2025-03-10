@@ -5,6 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginModule } from './login/login.module';
 import { LoginComponent } from './login/login.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+// Importações do Angular Material
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -13,7 +19,12 @@ import { LoginComponent } from './login/login.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    LoginModule
+    LoginModule,
+    MatSlideToggleModule,
+    BrowserAnimationsModule, // Necessário para as animações do Material
+    MatButtonModule,
+    MatInputModule
+
 
   ],
   providers: [],

@@ -1,0 +1,14 @@
+#logoLogin {
+  color: #f2bc94;
+}
+
+#formlogin {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  width: 200px;
+  height: 200px;
+  background-color: rgb(230, 154, 56);
+  margin: 100px auto; /* Centraliza horizontalmente com margin auto e dá um espaço superior de 100px */
+  padding: 10px;
+}
