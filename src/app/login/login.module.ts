@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   imports: [
@@ -17,8 +18,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,  // Botão do Angular Material
     MatInputModule,   // Campo de entrada do Angular Material
     ReactiveFormsModule, // Módulo de formulários reativos
+
   ],
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   exports: [LoginComponent]
 })
 export class LoginModule { }
