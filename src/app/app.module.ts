@@ -10,24 +10,28 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {  provideHttpClient } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LoginModule,
     MatSlideToggleModule,
-    BrowserAnimationsModule, // Necessário para as animações do Material
+    BrowserAnimationsModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+
+
 
 
   ],
-  providers: [],
+  providers: [provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -19,6 +19,7 @@ import { RegisterComponent } from './register/register.component';
     MatInputModule,   // Campo de entrada do Angular Material
     ReactiveFormsModule, // Módulo de formulários reativos
 
+
   ],
   declarations: [LoginComponent, RegisterComponent],
   exports: [LoginComponent]

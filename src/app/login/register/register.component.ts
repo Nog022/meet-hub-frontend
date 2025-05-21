@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { RegisterRequest, RegisterService } from './register.service';
 
 @Component({
   selector: 'app-register',
@@ -7,31 +8,43 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register.component.css'],
   standalone: false
 })
-export class RegisterComponent implements OnInit {
-  registerForm! : FormGroup;
-  constructor(private fb: FormBuilder) { }
+export class RegisterComponent{
+  registerForm: FormGroup;
 
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder, private registerService: RegisterService) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
-      companyName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-
-
-
-
-
-    });
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
+    }, { validators: this.passwordsMatchValidator });
   }
 
-  submitForm(){
-    if(this.registerForm.valid){
-      console.log('Dados do formulário:', this.registerForm.value);
-    }else {
-      console.log('Formulário inválido');
+  // Validação customizada
+  passwordsMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+    const password = group.get('password')?.value;
+    const confirm = group.get('confirmPassword')?.value;
+    return password === confirm ? null : { passwordMismatch: true };
+  }
+
+  submitForm(): void {
+    if (this.registerForm.valid) {
+          const registerData: RegisterRequest = this.registerForm.value;
+
+          this.registerService.register(registerData).subscribe({
+            next: (response) => {
+              console.log('Registro bem-sucedido!', response);
+              // Redirecionar, limpar formulário, etc.
+            },
+            error: (err) => {
+              console.error('Erro ao registrar:', err);
+              // Exibir erro para o usuário
+            }
+          });
+        } else {
+          console.warn('Formulário inválido');
+        }
+
     }
-  }
-
 }

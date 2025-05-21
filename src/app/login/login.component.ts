@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from './login.service';
 
 
 @Component({
@@ -9,24 +10,30 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   standalone: false,
 
 })
-export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
+export class LoginComponent {
+  loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder, private loginService: LoginService) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      // Aqui você pode adicionar a lógica para autenticar o usuário
-      const { username, password } = this.loginForm.value;
-      console.log('Usuário:', username, 'Senha:', password);
+      this.loginService.login(this.loginForm.value).subscribe(
+        response => {
+          localStorage.setItem('token', response.token); // Salva o token
+          console.log('Login bem-sucedido! Token:', response.token);
+
+        },
+        error => {
+          console.error('Erro no login', error);
+          alert('Login inválido. Verifique suas credenciais.');
+        }
+      );
     }
   }
-
 }
+
