@@ -5,3 +5,15 @@ body {
   margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #ebebeb;
 }
+
+.modelForm{
+  display: flex ;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}

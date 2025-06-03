@@ -1,0 +1,57 @@
+
+
+<div class="modelForm">
+  <form [formGroup]="formSala">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome da Sala</mat-label>
+      <input matInput formControlName="name">
+
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Capacidade Maxima</mat-label>
+      <input matInput formControlName="capacidadeMaxima" maxlength="11" pattern="\d{11}">
+
+    </mat-form-field>
+
+    <br>
+
+      <!-- Dropdown de recursos -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Adicionar Recurso</mat-label>
+      <mat-select (selectionChange)="adicionarRecurso($event.value)">
+        <mat-option *ngFor="let recurso of recursosDisponiveis" [value]="recurso">
+          {{ recurso }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br>
+
+    <!-- Lista de recursos adicionados -->
+    <div *ngIf="recursosSelecionados.length > 0">
+      <mat-chip-listbox>
+        <mat-chip *ngFor="let recurso of recursosSelecionados" [removable]="true" (removed)="removerRecurso(recurso)">
+          {{ recurso }}
+          <button mat-icon-button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-listbox>
+    </div>
+
+
+    <br>
+
+    <button mat-raised-button color="primary" type="submit">
+      Cadastrar
+    </button>
+
+  </form>
+</div>
+
+
+
