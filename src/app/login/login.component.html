@@ -15,8 +15,8 @@
 
   <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
     <mat-form-field appearance="fill">
-      <mat-label>Usuário</mat-label>
-      <input matInput placeholder="Digite seu usuário" formControlName="email" required>
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Digite seu Email" formControlName="email" required>
       <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
         O email é obrigatório
       </mat-error>

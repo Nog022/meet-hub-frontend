@@ -32,6 +32,7 @@ export class LoginComponent {
       this.loginService.login(this.loginForm.value).subscribe(
         response => {
           localStorage.setItem('token', response.token);  // Salva o token
+          localStorage.setItem('userEmail', response.email);
           console.log('Login bem-sucedido! Token:', response.token);
 
           if (!response.company) {

@@ -1,5 +1,5 @@
 <div class="modelForm">
-  <form [formGroup]="companyForm">
+  <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
 
     <!-- Campo CNPJ -->
     <mat-form-field appearance="outline" class="full-width">
