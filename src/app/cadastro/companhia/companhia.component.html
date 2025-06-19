@@ -1,4 +1,7 @@
+
+
 <div class="modelForm">
+
   <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
 
 
@@ -21,7 +24,7 @@
     <mat-form-field appearance="outline" class="full-width-input">
       <mat-label>Email Domain</mat-label>
       <input matInput [formControl]="emailDomainInput" placeholder="ex: minhaempresa.com.br"
-             (keydown.enter)="addDomainFromInput()">
+            (keydown.enter)="addDomainFromInput()">
       <button mat-icon-button matSuffix (click)="addDomainFromInput()" type="button">
         <mat-icon>add</mat-icon>
       </button>

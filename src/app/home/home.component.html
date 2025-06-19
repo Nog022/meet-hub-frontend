@@ -1,1 +1,35 @@
-<p>home works!</p>
+
+
+
+
+<h2>Bem-vindo!</h2>
+<button mat-raised-button color="primary" (click)="criarReserva()" class="botao-criar-reserva" >Criar Reserva</button>
+
+
+
+<h3>Reservas Realizados</h3>
+
+<table mat-table [dataSource]="reservas" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="data">
+    <th mat-header-cell *matHeaderCellDef> Data </th>
+    <td mat-cell *matCellDef="let reserva"> {{reserva.data | date}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="local">
+    <th mat-header-cell *matHeaderCellDef> Local </th>
+    <td mat-cell *matCellDef="let reserva"> {{reserva.local}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="sala">
+    <th mat-header-cell *matHeaderCellDef> Sala </th>
+    <td mat-cell *matCellDef="let reserva"> {{reserva.sala}} </td>
+  </ng-container>
+
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
