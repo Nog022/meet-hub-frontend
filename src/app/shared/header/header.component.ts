@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,5 +8,17 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-    @Output() toggleSidenav = new EventEmitter<void>();
+
+    constructor(private router: Router) {}
+  @Output() toggleSidenav = new EventEmitter<void>();
+
+    shouldShowMenuButton(): boolean {
+    const currentUrl = this.router.url;
+    return !(currentUrl.includes('/login') || currentUrl.includes('/register'));
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
 }

@@ -69,7 +69,7 @@ export class CompanhiaComponent {
         response => {
           console.log('Companhia criada com sucesso!', response);
           alert('Companhia criada com sucesso!');
-          //this.router.navigate(['/alguma-rota-depois']);  colocar a rota depois
+          this.router.navigate(['/home']);
         },
         error => {
           console.error('Erro ao criar companhia:', error);

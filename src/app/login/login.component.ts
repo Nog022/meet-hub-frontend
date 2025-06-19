@@ -31,7 +31,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value).subscribe(
         response => {
-          localStorage.setItem('token', response.token);  // Salva o token
+          localStorage.setItem('token', response.token);
           localStorage.setItem('userEmail', response.email);
           console.log('Login bem-sucedido! Token:', response.token);
 
@@ -40,12 +40,12 @@ export class LoginComponent {
 
             dialogRef.afterClosed().subscribe(result => {
               if (result) {
-                this.router.navigate(['/cadastro/companhia']);  // Ajuste a rota conforme o seu app
+                this.router.navigate(['/cadastro/companhia']);
               }
             });
           } else {
             // Se o usuário já tem companhia, segue para o dashboard ou outro lugar
-            this.router.navigate(['/dashboard']);  // Ajuste também
+            this.router.navigate(['/home']);  // Ajuste também
           }
 
         },
