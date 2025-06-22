@@ -33,6 +33,7 @@ export class LoginComponent {
         response => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('userEmail', response.email);
+          localStorage.setItem('company', JSON.stringify(response.company));
           console.log('Login bem-sucedido! Token:', response.token);
 
           if (!response.company) {
