@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { RegisterRequest, RegisterService } from './register.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ import { RegisterRequest, RegisterService } from './register.service';
 export class RegisterComponent{
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private registerService: RegisterService) {
+  constructor(private fb: FormBuilder, private registerService: RegisterService, private router: Router) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
@@ -35,11 +36,11 @@ export class RegisterComponent{
           this.registerService.register(registerData).subscribe({
             next: (response) => {
               console.log('Registro bem-sucedido!', response);
-              // Redirecionar, limpar formulário, etc.
+              this.router.navigate(['/login']);
             },
             error: (err) => {
               console.error('Erro ao registrar:', err);
-              // Exibir erro para o usuário
+
             }
           });
         } else {

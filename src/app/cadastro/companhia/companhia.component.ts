@@ -56,7 +56,7 @@ export class CompanhiaComponent {
   onSubmit(): void {
     if (this.companyForm.valid) {
       console.log('Formulário válido:', this.companyForm.value);
-      const userEmail = localStorage.getItem('userEmail');  // Exemplo: Pegando email do localStorage (ajuste conforme seu fluxo)
+      const userEmail = localStorage.getItem('userEmail');
 
       const companyData: CompanyDTO = {
         cnpj: this.companyForm.value.cnpj,
@@ -68,7 +68,8 @@ export class CompanhiaComponent {
       this.companhiaService.salvarCompanhia(companyData).subscribe(
         response => {
           console.log('Companhia criada com sucesso!', response);
-          alert('Companhia criada com sucesso!');
+          alert('Companhia criada com sucesso!');~
+          localStorage.setItem('company', JSON.stringify(response));
           this.router.navigate(['/home']);
         },
         error => {
