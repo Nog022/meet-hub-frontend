@@ -13,9 +13,10 @@ export class SalaService {
 
   constructor(private http: HttpClient) { }
 
-  buscarLocalizacoesPorCompanhia(companyId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrlLocal}/listLocalByCompany/${companyId}`);
+  buscarSalasPorLocal(localId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrlRoom}/listRoomByLocal/${localId}`);
   }
+
 
   cadastrarSala(salaDTO: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrlRoom}/save`, salaDTO);

@@ -1,0 +1,62 @@
+<div class="modelForm">
+  <form [formGroup]="formReserva" (ngSubmit)="onSubmit()">
+
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Localização</mat-label>
+      <mat-select formControlName="localId" (selectionChange)="buscarSalasPorLocal()">
+        <mat-option *ngFor="let local of locais" [value]="local.id">
+          {{ local.name }} - {{ local.address }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline" class="full-width" *ngIf="salas.length > 0">
+      <mat-label>Sala</mat-label>
+      <mat-select formControlName="salaId">
+        <mat-option *ngFor="let sala of salas" [value]="sala.id">
+          {{ sala.name }} (Capacidade: {{ sala.capacity }})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome do responsável</mat-label>
+      <input matInput formControlName="nomeResponsavel">
+    </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Data da Reserva</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="dataReserva" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Início da Reserva</mat-label>
+    <input matInput type="time" formControlName="horaInicio">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Fim da Reserva</mat-label>
+    <input matInput type="time" formControlName="horaFim">
+  </mat-form-field>
+
+
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descrição</mat-label>
+      <textarea matInput formControlName="descricao"></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Reservar</button>
+
+  </form>
+
+
+</div>
+

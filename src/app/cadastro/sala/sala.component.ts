@@ -21,32 +21,32 @@ export class SalaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private salaService: SalaService,
-    private router: Router
+    private router: Router,
+    private localizacaoService: LocalizacaoService
   ) {}
 
-ngOnInit(): void {
-  this.formSala = this.fb.group({
-    name: ['', Validators.required],
-    capacidadeMaxima: ['', [Validators.required, Validators.pattern('^[1-9][0-9]*$')]],
-    localId: ['', Validators.required]
-  });
-
-  const companyJson = localStorage.getItem('company');
-  if (companyJson) {
-    const company = JSON.parse(companyJson);
-    const companyId = company.id;
-
-    this.salaService.buscarLocalizacoesPorCompanhia(companyId).subscribe({
-      next: (data) => {
-        this.locais = data;
-        console.log('Locais carregados:', this.locais);
-      },
-      error: (err) => {
-        console.error('Erro ao buscar locais:', err);
-      }
+  ngOnInit(): void {
+    this.formSala = this.fb.group({
+      name: ['', Validators.required],
+      capacidadeMaxima: ['', [Validators.required, Validators.pattern('^[1-9][0-9]*$')]],
+      localId: ['', Validators.required]
     });
+
+    const companyJson = localStorage.getItem('company');
+    if (companyJson) {
+      const company = JSON.parse(companyJson);
+      const companyId = company.id;
+
+      this.localizacaoService.buscarLocalizacoesPorCompanhia(companyId)
+        .then((data) => {
+          this.locais = data;
+          console.log('Locais carregados:', this.locais);
+        })
+        .catch((err) => {
+          console.error('Erro ao buscar locais:', err);
+        });
+    }
   }
-}
 
 
   adicionarRecurso(recurso: string): void {

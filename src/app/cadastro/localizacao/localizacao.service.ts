@@ -34,4 +34,8 @@ export class LocalizacaoService {
     console.log(`Buscando informações para o CEP: ${cep}`);
     return this.http.get<ViaCepResponseDTO>(`${this.apiUrl}/findAddressByZipCode/${cep}`);
   }
+
+  buscarLocalizacoesPorCompanhia(companyId: number): Promise<any> {
+    return this.http.get<any>(`${this.apiUrl}/listLocalByCompany/${companyId}`).toPromise();
+  }
 }

@@ -12,6 +12,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NoCompanyDialogComponent } from './no-company-dialog/no-company-dialog.component';
+import { ReservaComponent } from './reserva/reserva.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -19,7 +24,9 @@ import { MatSelectModule } from '@angular/material/select';
   declarations: [
     LocalizacaoComponent,
     SalaComponent,
-    CompanhiaComponent
+    CompanhiaComponent,
+    NoCompanyDialogComponent,
+    ReservaComponent
   ],
   imports: [
     CommonModule,
@@ -31,10 +38,14 @@ import { MatSelectModule } from '@angular/material/select';
     FormsModule,
     MatIconModule,
     MatChipsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
 
-
-
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }
   ]
 })
 export class CadastroModule { }

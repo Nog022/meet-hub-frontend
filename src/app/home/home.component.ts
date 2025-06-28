@@ -20,8 +20,8 @@ export class HomeComponent implements OnInit {
   }
 
   criarReserva(): void {
-   // this.router.navigate(['/reservas/create']);
-   alert('Funcionalidade de criação de reservas ainda não implementada.');
+    this.router.navigate(['/cadastro/reserva']);
+
   }
 
   carregarReservas(): void {
