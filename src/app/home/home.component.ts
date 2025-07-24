@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
 
   nomeCompanhia: string = 'Companhhia';
   reservas: any[] = [];
-  displayedColumns: string[] = ['data', 'local', 'sala', 'inicio', 'fim', 'nomeResponsavel' ];
+  displayedColumns: string[] = ['data', 'local', 'sala', 'capacidadeMaxima', 'inicio', 'fim', 'nomeResponsavel' ];
 
   constructor(private router: Router, private homeService: HomeService, ) {}
 
