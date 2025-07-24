@@ -14,11 +14,10 @@ export class HomeComponent implements OnInit {
   nomeCompanhia: string = 'Companhhia';
   reservas: any[] = [];
   displayedColumns: string[] = ['data', 'local', 'sala', 'inicio', 'fim', 'nomeResponsavel' ];
-  isAdmin = false;
-  constructor(private router: Router, private homeService: HomeService, private authService: AuthService) {}
+
+  constructor(private router: Router, private homeService: HomeService, ) {}
 
   ngOnInit(): void {
-    this.isAdmin = this.authService.isAdmin();
     this.nomeCompanhia = JSON.parse(localStorage.getItem('company') || '{}')?.name
     this.carregarReservas();
   }
