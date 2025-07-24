@@ -1,5 +1,5 @@
 
-
+<h1 class="tituloPagina">Criar Conta</h1>
 <div class="modelForm">
   <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
 
@@ -53,8 +53,21 @@
 
     <br>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">
-      Registrar
+<button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid || isLoading">
+  <ng-container *ngIf="!isLoading">Registrar</ng-container>
+  <ng-container *ngIf="isLoading">
+    <mat-progress-spinner
+      diameter="20"
+      mode="indeterminate"
+      color="accent"
+      [strokeWidth]="3"
+      style="display: inline-block; vertical-align: middle;"
+    ></mat-progress-spinner>
+  </ng-container>
+</button>
+
+    <button mat-button color="accent" (click)="irParaLogin()" style="margin-left: 10px;">
+      Login
     </button>
 
   </form>

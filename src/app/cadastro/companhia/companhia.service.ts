@@ -8,6 +8,7 @@ export interface CompanyDTO {
   name: string;
   domain: string[];
   userEmail: string;
+  token?: string;
 }
 
 @Injectable({

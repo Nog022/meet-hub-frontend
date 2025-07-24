@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from './home.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +11,15 @@ import { HomeService } from './home.service';
 })
 export class HomeComponent implements OnInit {
 
+  nomeCompanhia: string = 'Companhhia';
   reservas: any[] = [];
-  displayedColumns: string[] = ['data', 'local', 'sala' ];
-
-  constructor(private router: Router, private homeService: HomeService) {}
+  displayedColumns: string[] = ['data', 'local', 'sala', 'inicio', 'fim', 'nomeResponsavel' ];
+  isAdmin = false;
+  constructor(private router: Router, private homeService: HomeService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.isAdmin();
+    this.nomeCompanhia = JSON.parse(localStorage.getItem('company') || '{}')?.name
     this.carregarReservas();
   }
 
@@ -24,10 +28,18 @@ export class HomeComponent implements OnInit {
 
   }
 
+  formatarHora(hora: string): string {
+    return hora?.slice(0, 5);
+  }
+
+
   carregarReservas(): void {
-    this.homeService.listarReservasAnteriores().subscribe(
+    const companyId = JSON.parse(localStorage.getItem('company') || '{}')?.id;
+
+    this.homeService.listarReservasAnteriores(companyId).subscribe(
       (data) => {
         this.reservas = data;
+        console.log('Reservas carregadas:', data);
       },
       (error) => {
         console.error('Erro ao carregar reservas:', error);

@@ -10,7 +10,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {  provideHttpClient } from '@angular/common/http';
+import {  provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HeaderComponent } from './shared/header/header.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -19,6 +19,8 @@ import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './home/home.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { AuthInterceptor } from './auth/auth.interceptor'; // ajuste o caminho se necessário
+
 
 
 
@@ -46,7 +48,8 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatListModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+
 
 
 
@@ -54,7 +57,11 @@ import { MatTableModule } from '@angular/material/table';
 
 
   ],
-  providers: [provideHttpClient()],
+  providers: [
+    provideHttpClient(
+      withInterceptors([AuthInterceptor])
+    )
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent{
   registerForm: FormGroup;
+  isLoading = false;
 
   constructor(private fb: FormBuilder, private registerService: RegisterService, private router: Router) {
     this.registerForm = this.fb.group({
@@ -22,7 +23,7 @@ export class RegisterComponent{
     }, { validators: this.passwordsMatchValidator });
   }
 
-  // Validação customizada
+
   passwordsMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
     const password = group.get('password')?.value;
     const confirm = group.get('confirmPassword')?.value;
@@ -31,15 +32,20 @@ export class RegisterComponent{
 
   submitForm(): void {
     if (this.registerForm.valid) {
+          this.isLoading = true;
           const registerData: RegisterRequest = this.registerForm.value;
 
           this.registerService.register(registerData).subscribe({
             next: (response) => {
               console.log('Registro bem-sucedido!', response);
+              this.isLoading = false;
+              alert('Registro bem-sucedido! Verifique seu e-mail para ativar sua conta.');
               this.router.navigate(['/login']);
             },
             error: (err) => {
+
               console.error('Erro ao registrar:', err);
+              this.isLoading = false;
 
             }
           });
@@ -47,5 +53,10 @@ export class RegisterComponent{
           console.warn('Formulário inválido');
         }
 
-    }
+  }
+
+    irParaLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
 }

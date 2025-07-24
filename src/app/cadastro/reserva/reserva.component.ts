@@ -78,13 +78,15 @@ export class ReservaComponent {
       startTime: this.formReserva.value.horaInicio,
       endTime: this.formReserva.value.horaFim,
       eventDescription: this.formReserva.value.descricao,
-      personName: this.formReserva.value.nomeResponsavel
+      personName: this.formReserva.value.nomeResponsavel,
+      companyId: JSON.parse(localStorage.getItem('company') || '{}')?.id
     };
 
     console.log('Reserva enviada:', reservaDTO);
 
     this.reservaService.cadastrarReserva(reservaDTO).subscribe({
       next: () => {
+        localStorage.setItem('ultimaReserva', JSON.stringify(reservaDTO));
         alert('Reserva criada com sucesso!');
         this.formReserva.reset();
         this.salas = [];
@@ -93,7 +95,11 @@ export class ReservaComponent {
       },
       error: (err) => {
         console.error('Erro ao criar reserva:', err);
-        alert('Erro ao criar reserva.');
+        if (err.status === 409) {
+          alert("Horário já reservado. Por favor, escolha outro horário.");
+        } else {
+          alert("Erro ao reservar. Tente novamente mais tarde.");
+        }
       }
     });
   } else {

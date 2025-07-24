@@ -4,6 +4,7 @@ import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { NoCompanyDialogComponent } from '../cadastro/no-company-dialog/no-company-dialog.component';
+import { AuthService } from '../auth/auth.service';
 
 
 @Component({
@@ -19,12 +20,18 @@ export class LoginComponent {
     private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+  }
+
+
+  ngOnInit(): void {
+    localStorage.clear();
   }
 
   onSubmit(): void {
@@ -41,12 +48,14 @@ export class LoginComponent {
 
             dialogRef.afterClosed().subscribe(result => {
               if (result) {
+
                 this.router.navigate(['/cadastro/companhia']);
               }
             });
           } else {
-            // Se o usuário já tem companhia, segue para o dashboard ou outro lugar
-            this.router.navigate(['/home']);  // Ajuste também
+            this.authService.saveToken(response.token);
+
+            this.router.navigate(['/home']);
           }
 
         },
@@ -58,7 +67,7 @@ export class LoginComponent {
     }
   }
 
-  goToCadastro(): void {
+  irParaCadastro(): void {
     this.router.navigate(['/register']);
   }
 }

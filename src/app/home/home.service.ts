@@ -12,7 +12,7 @@ export class HomeService {
 
   constructor(private http: HttpClient) {}
 
-  listarReservasAnteriores(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/listReservations`);
+  listarReservasAnteriores(companyId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/listReservationsByCompany/${companyId}`);
   }
 }

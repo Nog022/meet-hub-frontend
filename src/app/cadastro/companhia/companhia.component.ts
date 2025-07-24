@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CompanyDTO, CompanhiaService } from './companhia.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
 
 
 
@@ -16,11 +17,13 @@ export class CompanhiaComponent {
   companyForm: FormGroup;
   emailDomainInput = new FormControl('');
   emailDomains: string[] = [];
+  isEdicao: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private companhiaService: CompanhiaService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.companyForm = this.fb.group({
       cnpj: ['', Validators.required],
@@ -52,15 +55,37 @@ export class CompanhiaComponent {
     };
   }
 
+  ngOnInit(): void {
+    const companyString = localStorage.getItem('company');
+    const cnpj = JSON.parse(localStorage.getItem('company') || '{}')?.cnpj
+    console.log('CNPJ from localStorage:', cnpj);
+    if (cnpj) {
+      this.isEdicao = true;
+
+      const companyData = JSON.parse(localStorage.getItem('company') || '{}');
+      this.emailDomains = companyData?.domain || [];
+
+      this.companyForm.patchValue({
+        cnpj: cnpj,
+        companyName: companyData?.name || '',
+        emailDomains: this.emailDomains
+      });
+
+
+      this.companyForm.get('cnpj')?.disable();
+    }
+  }
+
 
   onSubmit(): void {
     if (this.companyForm.valid) {
       console.log('Formulário válido:', this.companyForm.value);
+      const formValues = this.companyForm.getRawValue();
       const userEmail = localStorage.getItem('userEmail');
 
       const companyData: CompanyDTO = {
-        cnpj: this.companyForm.value.cnpj,
-        name: this.companyForm.value.companyName,
+        cnpj: formValues.cnpj,
+        name: formValues.companyName,
         domain: this.emailDomains,
         userEmail: userEmail || ''
       };
@@ -68,8 +93,16 @@ export class CompanhiaComponent {
       this.companhiaService.salvarCompanhia(companyData).subscribe(
         response => {
           console.log('Companhia criada com sucesso!', response);
-          alert('Companhia criada com sucesso!');~
+          alert('Companhia criada com sucesso!');
           localStorage.setItem('company', JSON.stringify(response));
+
+
+            if (response.token) {
+              localStorage.setItem('token', response.token);
+              this.authService.saveToken(response.token);
+            }
+
+
           this.router.navigate(['/home']);
         },
         error => {

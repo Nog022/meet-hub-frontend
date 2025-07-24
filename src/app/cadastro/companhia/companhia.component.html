@@ -1,17 +1,15 @@
-
-
+<h1 class="tituloPagina">Cadastro da Instituição</h1>
 <div class="modelForm">
 
   <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
 
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>CNPJ</mat-label>
+    <input matInput formControlName="cnpj">
+  </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>CNPJ</mat-label>
-      <input matInput formControlName="cnpj">
-    </mat-form-field>
 
     <br>
-
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Nome da Companhia</mat-label>
@@ -19,7 +17,6 @@
     </mat-form-field>
 
     <br>
-
 
     <mat-form-field appearance="outline" class="full-width-input">
       <mat-label>Email Domain</mat-label>
@@ -29,7 +26,6 @@
         <mat-icon>add</mat-icon>
       </button>
     </mat-form-field>
-
 
     <div *ngIf="emailDomains.length > 0" class="chip-list-container">
       <mat-chip-listbox aria-label="Domínios de Email">
@@ -42,13 +38,11 @@
       </mat-chip-listbox>
     </div>
 
-
     <mat-error *ngIf="companyForm.get('emailDomains')?.hasError('minDomains') && companyForm.get('emailDomains')?.touched" class="domain-error-message">
       É necessário adicionar pelo menos um domínio de e-mail.
     </mat-error>
 
     <br>
-
 
     <button mat-raised-button color="primary" type="submit">
       Cadastrar
