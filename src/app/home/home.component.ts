@@ -13,9 +13,9 @@ export class HomeComponent implements OnInit {
 
   nomeCompanhia: string = 'Companhhia';
   reservas: any[] = [];
-  displayedColumns: string[] = ['data', 'local', 'sala', 'capacidadeMaxima', 'inicio', 'fim', 'nomeResponsavel' ];
+  displayedColumns: string[] = ['data', 'local', 'sala', 'capacidadeMaxima', 'inicio', 'fim', 'nomeResponsavel','criadoPor','acoes'];
 
-  constructor(private router: Router, private homeService: HomeService, ) {}
+  constructor(private router: Router, private homeService: HomeService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.nomeCompanhia = JSON.parse(localStorage.getItem('company') || '{}')?.name
@@ -30,6 +30,23 @@ export class HomeComponent implements OnInit {
   formatarHora(hora: string): string {
     return hora?.slice(0, 5);
   }
+
+  podeDeletar(reserva: any): boolean {
+    const userRole = this.authService.getRole();
+    const userIdLogado = this.authService.getUserId();
+
+    if (!userRole || !userIdLogado) {
+      return false;
+    }
+    return userRole === 'ADMIN' || reserva.userDTO.id === userIdLogado;
+  }
+
+  deletarReserva(reservaId: number): void {
+    console.log('Excluir reserva com ID:', reservaId);
+    this.homeService.excluirReserva(reservaId).subscribe(() => this.carregarReservas());
+
+  }
+
 
 
   carregarReservas(): void {

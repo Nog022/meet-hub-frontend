@@ -56,9 +56,7 @@ export class CompanhiaComponent {
   }
 
   ngOnInit(): void {
-    const companyString = localStorage.getItem('company');
     const cnpj = JSON.parse(localStorage.getItem('company') || '{}')?.cnpj
-    console.log('CNPJ from localStorage:', cnpj);
     if (cnpj) {
       this.isEdicao = true;
 
