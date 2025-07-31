@@ -38,12 +38,15 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value).subscribe(
         response => {
+          console.log('response:', response);
           localStorage.setItem('token', response.token);
           localStorage.setItem('userEmail', response.email);
-          localStorage.setItem('company', JSON.stringify(response.company));
+          localStorage.setItem('company', JSON.stringify(response.institutionDTO));
           console.log('Login bem-sucedido! Token:', response.token);
 
-          if (!response.company) {
+          if (!response.institutionDTO) {
+
+            console.log('resonse.institutionDTO:', response.institutionDTO);
             const dialogRef = this.dialog.open(NoCompanyDialogComponent);
 
             dialogRef.afterClosed().subscribe(result => {

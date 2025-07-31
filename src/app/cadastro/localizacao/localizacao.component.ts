@@ -76,7 +76,7 @@ export class LocalizacaoComponent implements OnInit {
       state: this.formLocalizacao.value.estado,
       number: this.formLocalizacao.value.numero,
       complement: this.formLocalizacao.value.complemento,
-      companyId: companyId
+      institutionId: companyId
     };
 
     alert('Formulário válido!');

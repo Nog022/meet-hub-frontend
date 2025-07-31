@@ -13,7 +13,7 @@ export class HomeService {
   constructor(private http: HttpClient) {}
 
   listarReservasAnteriores(companyId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/listReservationsByCompany/${companyId}`);
+    return this.http.get<any[]>(`${this.apiUrl}/listReservationsByInstitution/${companyId}`);
   }
 
   excluirReserva(reservaId: number): Observable<void> {

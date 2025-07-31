@@ -15,7 +15,7 @@ export interface CompanyDTO {
   providedIn: 'root'
 })
 export class CompanhiaService {
-  private apiUrl = `${environment.apiUrl}/company/save`;
+  private apiUrl = `${environment.apiUrl}/institution/save`;
 
   constructor(private http: HttpClient) {}
 

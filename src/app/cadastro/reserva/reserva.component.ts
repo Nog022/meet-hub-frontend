@@ -79,7 +79,7 @@ export class ReservaComponent {
       endTime: this.formReserva.value.horaFim,
       eventDescription: this.formReserva.value.descricao,
       personName: this.formReserva.value.nomeResponsavel,
-      companyId: JSON.parse(localStorage.getItem('company') || '{}')?.id
+      institutionId: JSON.parse(localStorage.getItem('company') || '{}')?.id
     };
 
     console.log('Reserva enviada:', reservaDTO);

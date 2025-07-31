@@ -36,6 +36,6 @@ export class LocalizacaoService {
   }
 
   buscarLocalizacoesPorCompanhia(companyId: number): Promise<any> {
-    return this.http.get<any>(`${this.apiUrl}/listLocalByCompany/${companyId}`).toPromise();
+    return this.http.get<any>(`${this.apiUrl}/listLocalByInstitution/${companyId}`).toPromise();
   }
 }
