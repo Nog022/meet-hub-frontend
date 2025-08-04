@@ -17,6 +17,8 @@ import { NoCompanyDialogComponent } from './no-company-dialog/no-company-dialog.
 import { ReservaComponent } from './reserva/reserva.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { ReservaDetalheComponent } from './reserva/reserva-detalhe/reserva-detalhe.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -26,7 +28,8 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
     SalaComponent,
     CompanhiaComponent,
     NoCompanyDialogComponent,
-    ReservaComponent
+    ReservaComponent,
+    ReservaDetalheComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +44,8 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatProgressSpinnerModule
   ],
 
   providers: [

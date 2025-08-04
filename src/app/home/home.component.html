@@ -47,15 +47,22 @@
     <td mat-cell *matCellDef="let reserva"> {{ reserva.userDTO.name }} </td>
   </ng-container>
 
-  <!-- AÇÕES: coluna para o botão de exclusão -->
+
   <ng-container matColumnDef="acoes">
     <th mat-header-cell *matHeaderCellDef> Ações </th>
-    <td mat-cell *matCellDef="let reserva">
-      <button mat-raised-button color="warn" *ngIf="podeDeletar(reserva)" (click)="deletarReserva(reserva.id)">
-        Excluir
+    <td mat-cell *matCellDef="let reserva" class="acoes-cell">
+      <button mat-icon-button aria-label="Ver detalhes" (click)="verDetalhes(reserva)">
+        <mat-icon>visibility</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" aria-label="Excluir reserva" *ngIf="podeDeletar(reserva)" (click)="deletarReserva(reserva.id)">
+        <mat-icon>delete</mat-icon>
       </button>
     </td>
   </ng-container>
+
+
+
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
