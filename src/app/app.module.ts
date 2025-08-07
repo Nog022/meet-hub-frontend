@@ -19,7 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './home/home.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
-import { AuthInterceptor } from './auth/auth.interceptor'; // ajuste o caminho se necessário
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 
 
@@ -49,11 +49,6 @@ import { AuthInterceptor } from './auth/auth.interceptor'; // ajuste o caminho s
     MatListModule,
     MatCardModule,
     MatTableModule,
-
-
-
-
-
 
 
   ],
