@@ -8,3 +8,35 @@
 }
 
 }
+
+.filtro-container {
+  margin: 16px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.filtro-container form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  padding-bottom: 250px;
+}
+
+.filtro-container mat-form-field {
+  flex: 1 1 180px;
+  min-width: 150px;
+  max-width: 220px;
+}
+
+.botao-criar-reserva {
+  margin-bottom: 12px;
+}
+
+.toolbar-filtros{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+

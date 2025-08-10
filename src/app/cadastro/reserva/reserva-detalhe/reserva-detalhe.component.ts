@@ -22,7 +22,8 @@ export class ReservaDetalheComponent implements OnInit {
 
   ngOnInit(): void {
     const companyId = JSON.parse(localStorage.getItem('company') || '{}')?.id;
-    this.homeService.listarReservasAnteriores(companyId).subscribe({
+    console.log('Carregando detalhes para reserva ID:', this.reservaId, 'e company ID:', companyId);
+    this.homeService.listarReservasAnteriores(companyId, null).subscribe({
       next: (r) => {
         this.reservas = r;
         this.selectedReserva = this.reservas.find(res => res.id === this.reservaId);

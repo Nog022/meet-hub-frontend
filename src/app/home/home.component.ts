@@ -4,6 +4,7 @@ import { HomeService } from './home.service';
 import { AuthService } from '../auth/auth.service';
 import { ReservaDetalheComponent } from '../cadastro/reserva/reserva-detalhe/reserva-detalhe.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +17,29 @@ export class HomeComponent implements OnInit {
   nomeCompanhia: string = 'Companhhia';
   reservas: any[] = [];
   displayedColumns: string[] = ['data', 'local', 'sala', 'capacidadeMaxima', 'inicio', 'fim', 'nomeResponsavel','criadoPor','acoes'];
+  filtroForm!: FormGroup;
+  mostrarFiltros = false;
 
-  constructor(private router: Router, private homeService: HomeService, private authService: AuthService, private dialog: MatDialog) {}
+  constructor(
+    private router: Router,
+    private homeService: HomeService,
+    private authService: AuthService,
+    private dialog: MatDialog,
+    private fb: FormBuilder
+
+  ) {}
 
   ngOnInit(): void {
     this.nomeCompanhia = JSON.parse(localStorage.getItem('company') || '{}')?.name
+
+    this.filtroForm = this.fb.group({
+      date: [''],
+      capacity: [''],
+      roomName: [''],
+      localName: ['']
+    });
+
+    console.log("formulario de filtro criado:", this.filtroForm);
     this.carregarReservas();
   }
 
@@ -53,8 +72,16 @@ export class HomeComponent implements OnInit {
 
   carregarReservas(): void {
     const companyId = JSON.parse(localStorage.getItem('company') || '{}')?.id;
-
-    this.homeService.listarReservasAnteriores(companyId).subscribe(
+    const filtros = this.filtroForm.value;
+    const filtrosParaEnvio = {
+    ...filtros,
+    date: this.formatDateToISO(filtros.date),
+    capacity: filtros.capacity || null,
+    roomName: filtros.roomName || null,
+    localName: filtros.localName || null
+  };
+    console.log('Carregando reservas para a companhia ID:', companyId, 'com filtros:', filtrosParaEnvio);
+    this.homeService.listarReservasAnteriores(companyId, filtrosParaEnvio).subscribe(
       (data) => {
         this.reservas = data;
         console.log('Reservas carregadas:', data);
@@ -72,4 +99,26 @@ export class HomeComponent implements OnInit {
       autoFocus: false
     });
   }
+
+  limparFiltros(): void {
+    this.filtroForm.reset();
+    this.carregarReservas();
+  }
+
+  toggleFiltros() {
+    this.mostrarFiltros = !this.mostrarFiltros;
+  }
+
+  private formatDateToISO(date: any): string | null {
+  if (!date) {
+    return null;
+  }
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = (d.getMonth() + 1).toString().padStart(2, '0');
+  const day = d.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+
 }

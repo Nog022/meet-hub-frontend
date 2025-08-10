@@ -3,7 +3,60 @@
   Criar Reserva
 </button>
 
+
+
+
+
+
+
 <h3>Reservas Realizadas</h3>
+
+<div class="toolbar-filtros">
+  <button mat-raised-button color="primary" (click)="toggleFiltros()">
+    Filtro
+    <mat-icon>filter_list</mat-icon>
+  </button>
+</div>
+<br>
+
+<div *ngIf="mostrarFiltros" class="filtro-container">
+  <form [formGroup]="filtroForm" (ngSubmit)="carregarReservas()" class="form-filtro">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Data da Reserva</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>Capacidade mínima</mat-label>
+      <input matInput type="number" formControlName="capacity">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nome da sala</mat-label>
+      <input matInput formControlName="roomName">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Local</mat-label>
+      <input matInput formControlName="localName">
+    </mat-form-field>
+
+    <div class="botoes-filtro">
+      <button mat-raised-button color="primary" type="submit">
+        Filtrar
+      </button>
+
+      <button mat-stroked-button color="warn" type="button" (click)="limparFiltros()">
+        Limpar
+      </button>
+    </div>
+
+  </form>
+</div>
 
 <table mat-table [dataSource]="reservas" class="mat-elevation-z8">
 

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment';
@@ -12,8 +12,20 @@ export class HomeService {
 
   constructor(private http: HttpClient) {}
 
-  listarReservasAnteriores(companyId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/listReservationsByInstitution/${companyId}`);
+  listarReservasAnteriores(companyId: number,filtros: any): Observable<any[]> {
+    if(filtros === null || filtros === undefined) {
+      return this.http.get<any[]>(`${this.apiUrl}/listReservationsByInstitution/${companyId}`);
+    }
+
+    let params = new HttpParams();
+    Object.keys(filtros).forEach(key => {
+      if (filtros[key]) {
+        params = params.set(key, filtros[key]);
+      }
+    });
+
+    return this.http.get<any[]>(`${this.apiUrl}/listReservationsByInstitution/${companyId}`, { params });
+
   }
 
   excluirReserva(reservaId: number): Observable<void> {
