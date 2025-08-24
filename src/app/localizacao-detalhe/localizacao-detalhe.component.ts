@@ -45,9 +45,10 @@ export class LocalizacaoDetalheComponent {
     this.localizacaoSelecionada = localizacao;
   }
 
-    editarLocalizacao(): void {
+  editarLocalizacao(id: number): void {
     if (!this.localizacaoSelecionada) return;
-    this.router.navigate(['/cadastro/localizacao', this.localizacaoSelecionada.id]);
+    this.router.navigate(['/cadastro/editar-localizacao', id]);
+
   }
 
   excluirLocalizacao(): void {

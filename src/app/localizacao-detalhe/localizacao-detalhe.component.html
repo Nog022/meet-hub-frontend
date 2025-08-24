@@ -26,7 +26,7 @@
         <p>Bairro: {{ localizacaoSelecionada.neighborhood }}</p>
         <p>Complemento: {{ localizacaoSelecionada.complement }}</p>
 
-        <button mat-raised-button color="warn" (click)="editarLocalizacao()">Editar</button>
+        <button mat-raised-button color="warn" (click)="editarLocalizacao(localizacaoSelecionada.id)">Editar</button>
         <button mat-raised-button  (click)="excluirLocalizacao()">Excluir</button>
       </div>
       <ng-template #semSelecao>

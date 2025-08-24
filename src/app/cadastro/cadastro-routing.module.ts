@@ -8,6 +8,7 @@ import { ReservaDetalheComponent } from './reserva/reserva-detalhe/reserva-detal
 
 const routes: Routes = [
   { path: 'localizacao', component: LocalizacaoComponent },
+  { path: 'editar-localizacao/:id', component: LocalizacaoComponent },
   { path: 'sala', component: SalaComponent },
   { path: 'companhia', component: CompanhiaComponent },
   { path: 'reserva', component: ReservaComponent },

@@ -1,4 +1,4 @@
-<h1 class="tituloPagina">Cadastrar Localização</h1>
+<h1 class="tituloPagina">{{ titulo }}</h1>
 <div class="modelForm">
 
   <form [formGroup]="formLocalizacao" (ngSubmit)="onSubmit()">
@@ -61,7 +61,7 @@
     <br>
 
     <button mat-raised-button color="primary" type="submit">
-      Cadastrar
+      Enviar
     </button>
 
   </form>

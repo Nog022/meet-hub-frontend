@@ -38,4 +38,15 @@ export class LocalizacaoService {
   buscarLocalizacoesPorCompanhia(companyId: number): Promise<any> {
     return this.http.get<any>(`${this.apiUrl}/listLocalByInstitution/${companyId}`).toPromise();
   }
+
+  updateLocalizacao(localizacao: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/update`,localizacao);
+  }
+
+
+  getById(id: number) {
+    return this.http.get<any>(`${this.apiUrl}/localById/${id}`);
+  }
+
+
 }
