@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { LocalizacaoDetalheComponent } from './localizacao-detalhe/localizacao-detalhe.component';
+import { SalaDetalheComponent } from './sala-detalhe/sala-detalhe.component';
 
 const routes: Routes = [
 {
@@ -12,6 +14,12 @@ const routes: Routes = [
 },
 {
   path: 'home', component: HomeComponent
+},
+{
+  path: 'localizacao-detalhe', component: LocalizacaoDetalheComponent
+},
+{
+  path: 'sala-detalhe', component: SalaDetalheComponent
 }
 ];
 

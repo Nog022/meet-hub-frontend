@@ -22,10 +22,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
-
-
-
+import { LocalizacaoDetalheComponent } from './localizacao-detalhe/localizacao-detalhe.component';
+import { SalaDetalheComponent } from './sala-detalhe/sala-detalhe.component';
 
 
 @NgModule({
@@ -33,8 +31,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     AppComponent,
     HeaderComponent,
     HomeComponent,
-
-
+    LocalizacaoDetalheComponent,
+    SalaDetalheComponent,
 
   ],
   imports: [

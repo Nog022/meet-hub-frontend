@@ -1,0 +1,38 @@
+<h1>Localização</h1>
+<button mat-raised-button color="primary" (click)="criarLocalizacao()" class="botao-criar-localizacao">
+  Criar Localização
+</button>
+
+<h3>Localizações Disponíveis</h3>
+
+<div class="container-localizacoes">
+  <mat-sidenav-container class="full-height">
+
+    <mat-sidenav mode="side" opened class="menu-localizacoes">
+      <mat-nav-list class="lista-scroll">
+        <mat-list-item *ngFor="let loc of localizacoes" (click)="selecionarLocalizacao(loc)" [ngClass]="{'item-selecionado': loc === localizacaoSelecionada}">
+          {{ loc.name }}
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+
+
+    <mat-sidenav-content class="conteudo-localizacao">
+      <div *ngIf="localizacaoSelecionada; else semSelecao">
+        <h2>{{ localizacaoSelecionada.name }}</h2>
+        <p>CEP: {{ localizacaoSelecionada.cep }}</p>
+        <p>Endereço: {{ localizacaoSelecionada.address }}, {{ localizacaoSelecionada.number }}</p>
+        <p>Cidade: {{ localizacaoSelecionada.city }} - {{ localizacaoSelecionada.state }}</p>
+        <p>Bairro: {{ localizacaoSelecionada.neighborhood }}</p>
+        <p>Complemento: {{ localizacaoSelecionada.complement }}</p>
+
+        <button mat-raised-button color="warn" (click)="editarLocalizacao()">Editar</button>
+        <button mat-raised-button  (click)="excluirLocalizacao()">Excluir</button>
+      </div>
+      <ng-template #semSelecao>
+        <p>Selecione uma localização para ver detalhes</p>
+      </ng-template>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>
