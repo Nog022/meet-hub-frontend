@@ -24,6 +24,10 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LocalizacaoDetalheComponent } from './localizacao-detalhe/localizacao-detalhe.component';
 import { SalaDetalheComponent } from './sala-detalhe/sala-detalhe.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { CommonModule } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -33,6 +37,7 @@ import { SalaDetalheComponent } from './sala-detalhe/sala-detalhe.component';
     HomeComponent,
     LocalizacaoDetalheComponent,
     SalaDetalheComponent,
+    ConfirmDialogComponent
 
   ],
   imports: [
@@ -54,9 +59,16 @@ import { SalaDetalheComponent } from './sala-detalhe/sala-detalhe.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    MatDividerModule,
+    MatIconModule,
+    CommonModule,
+    MatDialogModule
 
 
   ],
+  exports: [
+    ConfirmDialogComponent
+    ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     provideHttpClient(

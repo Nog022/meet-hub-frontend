@@ -1,7 +1,10 @@
+import { LocalizacaoDetalheService } from './localizacao-detalhe.service';
 import { LocalizacaoService } from './../cadastro/localizacao/localizacao.service';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-localizacao-detalhe',
@@ -16,7 +19,9 @@ export class LocalizacaoDetalheComponent {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private localizacaoService: LocalizacaoService
+    private localizacaoService: LocalizacaoService,
+    private dialog: MatDialog,
+    private localizacaoDetalheService: LocalizacaoDetalheService,
 
   ) {}
 
@@ -51,9 +56,25 @@ export class LocalizacaoDetalheComponent {
 
   }
 
-  excluirLocalizacao(): void {
+  excluirLocalizacao(id: number): void {
     if (!this.localizacaoSelecionada) return;
-    alert(`Excluir localização: ${this.localizacaoSelecionada.nome}`);
+    console.log('Excluir reserva com ID:', id);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { message: 'Tem certeza que deseja deletar está localização?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.localizacaoDetalheService.excluirLocalizacao(id).then(() => this.carregarLocalizacoes(JSON.parse(localStorage.getItem('company') || '{}')?.id));
+        this.carregarLocalizacoes(JSON.parse(localStorage.getItem('company') || '{}')?.id);
+        this.localizacaoSelecionada = null;
+        console.log('Usuário deletado:', id);
+
+      } else {
+        console.log('Cancelado');
+      }
+    });
     console.log('Excluir localizacao id:', this.localizacaoSelecionada.id);
   }
 }

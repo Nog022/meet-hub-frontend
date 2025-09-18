@@ -6,23 +6,17 @@ import { firstValueFrom } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class SalaDetalheService {
+export class LocalizacaoDetalheService {
 
-  private apiUrl = `${environment.apiUrl}/api/rooms`;
+  private apiUrl = `${environment.apiUrl}/api/locations`;
 
   constructor(private http: HttpClient) {}
 
-  buscarSalasPorIntituicao(companyId: number): Promise<any[]> {
-    return firstValueFrom(
-      this.http.get<any[]>(`${this.apiUrl}/listRoomByInstitution/${companyId}`)
-    );
-  }
 
-  excluirSala(id: number): Promise<void> {
+  excluirLocalizacao(id: number): Promise<void> {
     return firstValueFrom(
       this.http.delete<void>(`${this.apiUrl}/delete/${id}`)
     );
   }
-
 
 }

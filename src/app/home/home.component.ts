@@ -5,6 +5,7 @@ import { AuthService } from '../auth/auth.service';
 import { ReservaDetalheComponent } from '../cadastro/reserva/reserva-detalhe/reserva-detalhe.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -64,7 +65,21 @@ export class HomeComponent implements OnInit {
 
   deletarReserva(reservaId: number): void {
     console.log('Excluir reserva com ID:', reservaId);
-    this.homeService.excluirReserva(reservaId).subscribe(() => this.carregarReservas());
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { message: 'Tem certeza que deseja deletar está reserva?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.homeService.excluirReserva(reservaId).subscribe(() => this.carregarReservas());
+        console.log('Usuário deletado:', reservaId);
+
+      } else {
+        console.log('Cancelado');
+      }
+    });
+
 
   }
 

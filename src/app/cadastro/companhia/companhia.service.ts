@@ -15,11 +15,15 @@ export interface CompanyDTO {
   providedIn: 'root'
 })
 export class CompanhiaService {
-  private apiUrl = `${environment.apiUrl}/institution/save`;
+  private apiUrl = `${environment.apiUrl}/institution`;
 
   constructor(private http: HttpClient) {}
 
   salvarCompanhia(companyData: CompanyDTO): Observable<CompanyDTO> {
-    return this.http.post<CompanyDTO>(`${this.apiUrl}`, companyData);
+    return this.http.post<CompanyDTO>(`${this.apiUrl}/save`, companyData);
+  }
+
+  atualizarCompanhia(companyData: CompanyDTO): Observable<CompanyDTO> {
+    return this.http.put<CompanyDTO>(`${this.apiUrl}/update`, companyData);
   }
 }

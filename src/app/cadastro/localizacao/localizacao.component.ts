@@ -36,7 +36,7 @@ export class LocalizacaoComponent implements OnInit {
     if (id) {
       this.idEdicao = +id;
       this.titulo = 'Editar Localização';
-      this.localizacaoService.getById(this.idEdicao).subscribe({
+      this.localizacaoService.localById(this.idEdicao).subscribe({
         next: (data) => {
           this.formLocalizacao.patchValue({
             name: data.name,
@@ -120,7 +120,7 @@ export class LocalizacaoComponent implements OnInit {
         this.localizacaoService.cadastrarLocalizacao(localizacaoDTO).subscribe({
           next: () => {
             alert('Localização cadastrada com sucesso!');
-            this.router.navigate(['/home']);
+            this.router.navigate(['/localizacao-detalhe']);
           },
           error: (err) => {
             console.error('Erro ao cadastrar localização:', err);

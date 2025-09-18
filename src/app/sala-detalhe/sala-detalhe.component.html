@@ -25,11 +25,11 @@
         <p>Recursos da Sala: {{ salaSelecionada.resources }}</p>
 
 
-        <button mat-raised-button color="warn" (click)="editarSalas()">Editar</button>
-        <button mat-raised-button  (click)="excluirSalas()">Excluir</button>
+        <button mat-raised-button color="warn" (click)="editarSalas(salaSelecionada.id)">Editar</button>
+        <button mat-raised-button  (click)="excluirSalas(salaSelecionada.id)">Excluir</button>
       </div>
       <ng-template #semSelecao>
-        <p>Selecione uma localização para ver detalhes</p>
+
       </ng-template>
     </mat-sidenav-content>
 

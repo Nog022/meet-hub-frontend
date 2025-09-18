@@ -27,10 +27,10 @@
         <p>Complemento: {{ localizacaoSelecionada.complement }}</p>
 
         <button mat-raised-button color="warn" (click)="editarLocalizacao(localizacaoSelecionada.id)">Editar</button>
-        <button mat-raised-button  (click)="excluirLocalizacao()">Excluir</button>
+        <button mat-raised-button  (click)="excluirLocalizacao(localizacaoSelecionada.id)">Excluir</button>
       </div>
       <ng-template #semSelecao>
-        <p>Selecione uma localização para ver detalhes</p>
+
       </ng-template>
     </mat-sidenav-content>
 

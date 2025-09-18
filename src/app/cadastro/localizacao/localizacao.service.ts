@@ -44,7 +44,7 @@ export class LocalizacaoService {
   }
 
 
-  getById(id: number) {
+  localById(id: number) {
     return this.http.get<any>(`${this.apiUrl}/localById/${id}`);
   }
 

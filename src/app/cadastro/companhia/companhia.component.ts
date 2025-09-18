@@ -18,6 +18,7 @@ export class CompanhiaComponent {
   emailDomainInput = new FormControl('');
   emailDomains: string[] = [];
   isEdicao: boolean = false;
+  titulo = 'Cadastro da Instituição';
 
   constructor(
     private fb: FormBuilder,
@@ -59,7 +60,7 @@ export class CompanhiaComponent {
     const cnpj = JSON.parse(localStorage.getItem('company') || '{}')?.cnpj
     if (cnpj) {
       this.isEdicao = true;
-
+      this.titulo = 'Edição da Instituição';
       const companyData = JSON.parse(localStorage.getItem('company') || '{}');
       this.emailDomains = companyData?.domain || [];
 
@@ -88,25 +89,40 @@ export class CompanhiaComponent {
         userEmail: userEmail || ''
       };
 
-      this.companhiaService.salvarCompanhia(companyData).subscribe(
-        response => {
-          console.log('Companhia criada com sucesso!', response);
-          alert('Companhia criada com sucesso!');
-          localStorage.setItem('company', JSON.stringify(response));
+      if(this.isEdicao) {
+        this.companhiaService.atualizarCompanhia(companyData).subscribe(
+          response => {
+            console.log('Companhia atualizada com sucesso!', response);
+            alert('Companhia atualizada com sucesso!');
+            localStorage.setItem('company', JSON.stringify(response));
+            this.router.navigate(['/home']);
+          },
+          error => {
+            console.error('Erro ao atualizar companhia:', error);
+          }
+        )
+      }else{
+        this.companhiaService.salvarCompanhia(companyData).subscribe(
+          response => {
+            console.log('Companhia criada com sucesso!', response);
+            alert('Companhia criada com sucesso!');
+            localStorage.setItem('company', JSON.stringify(response));
 
 
-            if (response.token) {
-              localStorage.setItem('token', response.token);
-              this.authService.saveToken(response.token);
-            }
+              if (response.token) {
+                localStorage.setItem('token', response.token);
+                this.authService.saveToken(response.token);
+              }
 
 
-          this.router.navigate(['/home']);
-        },
-        error => {
-          console.error('Erro ao criar companhia:', error);
-        }
-      );
+            this.router.navigate(['/home']);
+          },
+          error => {
+            console.error('Erro ao criar companhia:', error);
+          }
+        );
+      }
+
 
     } else {
       this.companyForm.markAllAsTouched();

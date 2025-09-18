@@ -22,4 +22,14 @@ export class SalaService {
     return this.http.post<any>(`${this.apiUrlRoom}/save`, salaDTO);
   }
 
+  updateSala(salaDTO: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrlRoom}/update`,salaDTO);
+  }
+
+
+  roomById(id: number) {
+    return this.http.get<any>(`${this.apiUrlRoom}/roomById/${id}`);
+  }
+
+
 }

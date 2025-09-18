@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'localizacao', component: LocalizacaoComponent },
   { path: 'editar-localizacao/:id', component: LocalizacaoComponent },
   { path: 'sala', component: SalaComponent },
+  { path: 'editar-sala/:id', component: SalaComponent },
   { path: 'companhia', component: CompanhiaComponent },
   { path: 'reserva', component: ReservaComponent },
   { path: 'reserva/reserva-detalhe', component: ReservaDetalheComponent }

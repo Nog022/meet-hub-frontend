@@ -1,4 +1,4 @@
-<h1 class="tituloPagina">Cadastro da Instituição</h1>
+<h1 class="tituloPagina">{{titulo}}</h1>
 <div class="modelForm">
 
   <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
@@ -12,7 +12,7 @@
     <br>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Nome da Companhia</mat-label>
+      <mat-label>Nome da Instituição</mat-label>
       <input matInput formControlName="companyName">
     </mat-form-field>
 
@@ -45,7 +45,7 @@
     <br>
 
     <button mat-raised-button color="primary" type="submit">
-      Cadastrar
+      Enviar
     </button>
 
   </form>

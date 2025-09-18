@@ -23,6 +23,8 @@ export class AppComponent {
   }
   logout(): void {
     localStorage.clear();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload();
+  });
   }
 }
