@@ -1,0 +1,117 @@
+<h1>{{ nomeCompanhia }}</h1>
+<button mat-raised-button color="primary" (click)="criarReserva()" class="botao-criar-reserva">
+  Criar Reserva
+</button>
+
+<h3>Reservas Realizadas</h3>
+
+<div class="toolbar-filtros">
+  <button mat-raised-button color="primary" (click)="toggleFiltros()">
+    Filtro
+    <mat-icon>filter_list</mat-icon>
+  </button>
+</div>
+<br>
+
+<div *ngIf="mostrarFiltros" class="filtro-container">
+  <form [formGroup]="filtroForm" (ngSubmit)="carregarReservas()" class="form-filtro">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Data da Reserva</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>Capacidade mínima</mat-label>
+      <input matInput type="number" formControlName="capacity">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nome da sala</mat-label>
+      <input matInput formControlName="roomName">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Local</mat-label>
+      <input matInput formControlName="localName">
+    </mat-form-field>
+
+    <div class="botoes-filtro">
+      <button mat-raised-button color="primary" type="submit">
+        Filtrar
+      </button>
+
+      <button mat-stroked-button color="warn" type="button" (click)="limparFiltros()">
+        Limpar
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<table mat-table [dataSource]="reservas" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="data">
+    <th mat-header-cell *matHeaderCellDef> Data </th>
+    <td mat-cell *matCellDef="let reserva"> {{ reserva.date | date:'dd/MM/yyyy' }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="local">
+    <th mat-header-cell *matHeaderCellDef> Local </th>
+    <td mat-cell *matCellDef="let reserva"> {{ reserva.roomReportDTO.localDTO.name }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="sala">
+    <th mat-header-cell *matHeaderCellDef> Sala </th>
+    <td mat-cell *matCellDef="let reserva"> {{ reserva.roomReportDTO.name }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="capacidadeMaxima">
+    <th mat-header-cell *matHeaderCellDef> Capacidade </th>
+    <td mat-cell *matCellDef="let reserva"> {{ reserva.roomReportDTO.capacity }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="inicio">
+    <th mat-header-cell *matHeaderCellDef> Início </th>
+    <td mat-cell *matCellDef="let reserva"> {{ formatarHora(reserva.startTime) }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="fim">
+    <th mat-header-cell *matHeaderCellDef> Fim </th>
+    <td mat-cell *matCellDef="let reserva"> {{ formatarHora(reserva.endTime) }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="nomeResponsavel">
+    <th mat-header-cell *matHeaderCellDef> Responsável </th>
+    <td mat-cell *matCellDef="let reserva"> {{ reserva.personName }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="criadoPor">
+    <th mat-header-cell *matHeaderCellDef> Criado Por </th>
+    <td mat-cell *matCellDef="let reserva"> {{ reserva.userDTO.name }} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="acoes">
+    <th mat-header-cell *matHeaderCellDef> Ações </th>
+    <td mat-cell *matCellDef="let reserva" class="acoes-cell">
+      <button mat-icon-button aria-label="Ver detalhes" (click)="verDetalhes(reserva)">
+        <mat-icon>visibility</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" aria-label="Excluir reserva" *ngIf="podeDeletar(reserva)" (click)="deletarReserva(reserva.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>

@@ -1,0 +1,37 @@
+<h1>Salas</h1>
+<button mat-raised-button color="primary" (click)="criarSala()" class="botao-criar-sala">
+  Criar Salas
+</button>
+
+<h3>Salas Disponiveis</h3>
+
+<div class="container-salas">
+  <mat-sidenav-container class="full-height">
+
+    <mat-sidenav mode="side" opened class="menu-salas">
+      <mat-nav-list class="lista-scroll">
+        <mat-list-item *ngFor="let sal of salas" (click)="selecionarSalas(sal)" [ngClass]="{'item-selecionado': sal === salaSelecionada}">
+          {{ sal.name }}
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+
+
+    <mat-sidenav-content class="conteudo-localizacao">
+      <div *ngIf="salaSelecionada; else semSelecao">
+        <h2>{{ salaSelecionada.name }}</h2>
+        <p>Capacidade: {{ salaSelecionada.capacity }}</p>
+        <p>Nome da Localização: {{ salaSelecionada.localName }}</p>
+        <p>Recursos da Sala: {{ salaSelecionada.resources }}</p>
+
+
+        <button mat-raised-button color="warn" (click)="editarSalas(salaSelecionada.id)">Editar</button>
+        <button mat-raised-button  (click)="excluirSalas(salaSelecionada.id)">Excluir</button>
+      </div>
+      <ng-template #semSelecao>
+
+      </ng-template>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>

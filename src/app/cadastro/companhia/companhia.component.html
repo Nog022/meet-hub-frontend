@@ -1,0 +1,52 @@
+<h1 class="tituloPagina">{{titulo}}</h1>
+<div class="modelForm">
+
+  <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>CNPJ</mat-label>
+    <input matInput formControlName="cnpj">
+  </mat-form-field>
+
+
+    <br>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome da Instituição</mat-label>
+      <input matInput formControlName="companyName">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field appearance="outline" class="full-width-input">
+      <mat-label>Email Domain</mat-label>
+      <input matInput [formControl]="emailDomainInput" placeholder="ex: minhaempresa.com.br"
+            (keydown.enter)="addDomainFromInput()">
+      <button mat-icon-button matSuffix (click)="addDomainFromInput()" type="button">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div *ngIf="emailDomains.length > 0" class="chip-list-container">
+      <mat-chip-listbox aria-label="Domínios de Email">
+        <mat-chip *ngFor="let domain of emailDomains" [removable]="true" (removed)="removeEmailDomain(domain)">
+          {{ domain }}
+          <button mat-icon-button matChipRemove type="button">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-listbox>
+    </div>
+
+    <mat-error *ngIf="companyForm.get('emailDomains')?.hasError('minDomains') && companyForm.get('emailDomains')?.touched" class="domain-error-message">
+      É necessário adicionar pelo menos um domínio de e-mail.
+    </mat-error>
+
+    <br>
+
+    <button mat-raised-button color="primary" type="submit">
+      Enviar
+    </button>
+
+  </form>
+</div>

@@ -1,24 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-</head>
-<body>
+<h1 class="tituloPagina">Entrar</h1>
 
 
-
-
-<div id="formlogin">
+<div class="modelForm">
 
 
   <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
     <mat-form-field appearance="fill">
-      <mat-label>Usuário</mat-label>
-      <input matInput placeholder="Digite seu usuário" formControlName="username" required>
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Digite seu Email" formControlName="email" required>
       <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
-        O usuário é obrigatório
+        O email é obrigatório
       </mat-error>
     </mat-form-field>
 
@@ -35,12 +26,15 @@
     <br>
 
     <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Entrar</button>
+    <button mat-button color="accent" (click)="irParaCadastro()" style="margin-left: 10px;">
+      Criar conta
+    </button>
+
   </form>
 </div>
 
 
 
 
-</body>
-</html>
+
 

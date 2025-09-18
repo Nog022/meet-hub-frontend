@@ -1,0 +1,68 @@
+<h1 class="tituloPagina">{{ titulo }}</h1>
+<div class="modelForm">
+
+  <form [formGroup]="formLocalizacao" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <br>
+
+<mat-form-field appearance="outline" class="full-width">
+  <mat-label>CEP</mat-label>
+  <input matInput formControlName="cep" maxlength="8" (blur)="buscarCep()">
+</mat-form-field>
+
+
+    <br>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Endereço</mat-label>
+      <input matInput formControlName="endereco">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Bairro</mat-label>
+      <input matInput formControlName="bairro">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Cidade</mat-label>
+      <input matInput formControlName="cidade">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Estado</mat-label>
+      <input matInput formControlName="estado">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Número</mat-label>
+      <input matInput formControlName="numero" type="number" min="1">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Complemento</mat-label>
+      <input matInput formControlName="complemento">
+    </mat-form-field>
+
+    <br>
+
+    <button mat-raised-button color="primary" type="submit">
+      Enviar
+    </button>
+
+  </form>
+</div>

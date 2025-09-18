@@ -1,0 +1,44 @@
+.container-localizacoes {
+  height: 100%;
+
+}
+
+.full-height {
+  height: calc(100vh - 150px);
+}
+
+.menu-localizacoes {
+  width: 250px;
+  height: auto;
+
+
+}
+
+.lista-scroll {
+
+  overflow-y: auto;
+}
+
+.conteudo-localizacao {
+  padding-left: 20px;
+}
+
+h2 {
+  margin-top: 8px;
+  color: #333;
+}
+
+
+.item-selecionado {
+  background-color: #e3f2fd;
+  font-weight: bold;
+  border-left: 4px solid #00154F;
+}
+
+.mat-list-item {
+  cursor: pointer;
+}
+
+.mat-list-item:hover {
+  background-color: #f0f0f0;
+}

@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>Detalhes da reserva</h2>
+
+<mat-dialog-content class="dialog-content">
+  <div *ngIf="loading" class="loading" style="display:flex; align-items:center; gap:8px;">
+    <mat-progress-spinner mode="indeterminate" diameter="36"></mat-progress-spinner>
+    <span>Carregando...</span>
+  </div>
+
+  <div *ngIf="error && !loading" class="error">
+    Não foi possível carregar os detalhes da reserva.
+  </div>
+
+  <ng-container *ngIf="!loading && !error">
+    <ng-container *ngIf="selectedReserva; else naoEncontrada">
+      <div class="section">
+        <p><strong>Sala:</strong> {{ selectedReserva?.roomReportDTO?.name }}</p>
+        <p><strong>Capacidade:</strong> {{ selectedReserva?.roomReportDTO?.capacity }}</p>
+        <p><strong>Recursos da Sala:</strong> {{ selectedReserva?.roomReportDTO?.resources }}</p>
+        <hr>
+        <p><strong>Local:</strong> {{ selectedReserva?.roomReportDTO?.localDTO?.name }}</p>
+        <p><strong>Cep:</strong> {{ selectedReserva?.roomReportDTO?.localDTO?.cep }}</p>
+        <p><strong>Endereço:</strong> {{ selectedReserva?.roomReportDTO?.localDTO?.address }}</p>
+        <p><strong>Bairro :</strong> {{ selectedReserva?.roomReportDTO?.localDTO?.neighborhood }}</p>
+        <p><strong>Cidade:</strong> {{ selectedReserva?.roomReportDTO?.localDTO?.city }}</p>
+        <p><strong>Estado:</strong> {{ selectedReserva?.roomReportDTO?.localDTO?.state }}</p>
+        <p><strong>Número:</strong> {{ selectedReserva?.roomReportDTO?.localDTO?.number }}</p>
+        <p><strong>Complemento:</strong> {{ selectedReserva?.roomReportDTO?.localDTO?.complement }}</p>
+        <hr>
+        <p><strong>Responsável:</strong> {{ selectedReserva?.personName }}</p>
+        <p><strong>Criado por:</strong> {{ selectedReserva?.userDTO?.name }}</p>
+        <p><strong>Início:</strong> {{ selectedReserva?.startTime }}</p>
+        <p><strong>Fim:</strong> {{ selectedReserva?.endTime }}</p>
+
+      </div>
+    </ng-container>
+
+    <ng-template #naoEncontrada>
+      <p>Reserva não encontrada.</p>
+    </ng-template>
+  </ng-container>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="fechar()">Fechar</button>
+</mat-dialog-actions>

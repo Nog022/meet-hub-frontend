@@ -1,0 +1,70 @@
+<h1 class="tituloPagina">Cadastro Sala</h1>
+<div class="modelForm">
+  <form [formGroup]="formSala" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome da Sala</mat-label>
+      <input matInput formControlName="name">
+
+    </mat-form-field>
+
+    <br>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Capacidade Máxima</mat-label>
+    <input matInput type="number" formControlName="capacidadeMaxima">
+    <mat-error *ngIf="formSala.get('capacidadeMaxima')?.hasError('required')">
+      Campo obrigatório.
+    </mat-error>
+    <mat-error *ngIf="formSala.get('capacidadeMaxima')?.hasError('pattern')">
+      Digite apenas números inteiros.
+    </mat-error>
+  </mat-form-field>
+
+
+    <br>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Adicionar Recurso</mat-label>
+      <mat-select (selectionChange)="adicionarRecurso($event.value)">
+        <mat-option *ngFor="let recurso of recursosDisponiveis" [value]="recurso">
+          {{ recurso }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Locais</mat-label>
+      <mat-select formControlName="localId" required>
+        <mat-option *ngFor="let local of locais" [value]="local.id">
+        {{ local.name }} - {{ local.address }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <div *ngIf="recursosSelecionados.length > 0">
+      <mat-chip-listbox>
+        <mat-chip *ngFor="let recurso of recursosSelecionados" [removable]="true" (removed)="removerRecurso(recurso)">
+          {{ recurso }}
+          <button mat-icon-button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-listbox>
+    </div>
+
+
+    <br>
+
+    <button mat-raised-button color="primary" type="submit">
+      Cadastrar
+    </button>
+
+  </form>
+</div>
+
+
+
