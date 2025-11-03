@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SalaDetalheService } from './sala-detalhe.service';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-sala-detalhe',
@@ -22,6 +23,7 @@ export class SalaDetalheComponent {
       private fb: FormBuilder,
       private salaDetalheService: SalaDetalheService,
       private dialog: MatDialog,
+      public authService: AuthService
 
     ) {}
 

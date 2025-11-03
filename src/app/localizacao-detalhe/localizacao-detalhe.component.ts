@@ -5,6 +5,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-localizacao-detalhe',
@@ -22,6 +23,7 @@ export class LocalizacaoDetalheComponent {
     private localizacaoService: LocalizacaoService,
     private dialog: MatDialog,
     private localizacaoDetalheService: LocalizacaoDetalheService,
+    public authService: AuthService
 
   ) {}
 
@@ -34,6 +36,8 @@ export class LocalizacaoDetalheComponent {
   criarLocalizacao(): void {
     this.router.navigate(['/cadastro/localizacao']);
   }
+
+
 
   carregarLocalizacoes(companyId: number ): void {
     this.localizacaoService.buscarLocalizacoesPorCompanhia(companyId).then(

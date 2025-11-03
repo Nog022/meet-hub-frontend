@@ -25,8 +25,8 @@
         <p>Recursos da Sala: {{ salaSelecionada.resources }}</p>
 
 
-        <button mat-raised-button color="warn" (click)="editarSalas(salaSelecionada.id)">Editar</button>
-        <button mat-raised-button  (click)="excluirSalas(salaSelecionada.id)">Excluir</button>
+        <button *ngIf="authService.isAdmin()" mat-raised-button color="warn" (click)="editarSalas(salaSelecionada.id)">Editar</button>
+        <button *ngIf="authService.isAdmin()" mat-raised-button  (click)="excluirSalas(salaSelecionada.id)">Excluir</button>
       </div>
       <ng-template #semSelecao>
 

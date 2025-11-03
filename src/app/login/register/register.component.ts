@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { RegisterRequest, RegisterService } from './register.service';
 import { Router } from '@angular/router';
+import { cpf } from 'cpf-cnpj-validator';
 
 @Component({
   selector: 'app-register',
@@ -31,9 +32,19 @@ export class RegisterComponent{
   }
 
   submitForm(): void {
+    console.log("Submit form chamado");
     if (this.registerForm.valid) {
           this.isLoading = true;
+        /*
+          if (!cpf.isValid(this.registerForm.value.cpf)) {
+            alert("O CPF inserido é invalido, insira um CPF valido.");
+            this.isLoading = false;
+            return;
+          }
+            */
           const registerData: RegisterRequest = this.registerForm.value;
+
+
 
           this.registerService.register(registerData).subscribe({
             next: (response) => {
@@ -47,6 +58,13 @@ export class RegisterComponent{
               console.error('Erro ao registrar:', err);
               this.isLoading = false;
 
+              if (err.status === 409 && err.error?.error) {
+              alert(`⚠️ ${err.error.error}`);
+              } else if (err.status === 400) {
+              alert('⚠️ Dados inválidos. Verifique os campos e tente novamente.');
+              } else {
+              alert('❌ Ocorreu um erro inesperado. Tente novamente mais tarde.');
+              }
             }
           });
         } else {

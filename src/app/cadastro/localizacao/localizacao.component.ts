@@ -14,6 +14,7 @@ export class LocalizacaoComponent implements OnInit {
   formLocalizacao!: FormGroup;
   titulo = 'Cadastrar Localização';
   idEdicao: number | null = null;
+  isLoading = false;
   constructor(
     private fb: FormBuilder,
     private localizacaoService: LocalizacaoService,
@@ -82,10 +83,12 @@ export class LocalizacaoComponent implements OnInit {
   onSubmit(): void {
     if (this.formLocalizacao.valid) {
       const companyJson = localStorage.getItem('company');
+
       if (!companyJson) {
         alert('Empresa não encontrada no localStorage.');
         return;
       }
+      this.isLoading = true;
 
       const company = JSON.parse(companyJson);
       const companyId = company.id;
@@ -108,10 +111,12 @@ export class LocalizacaoComponent implements OnInit {
         console.log('é uma edição');
         this.localizacaoService.updateLocalizacao(localizacaoDTO).subscribe({
           next: () => {
+            this.isLoading = false;
             alert('Localização atualizada com sucesso!');
             this.router.navigate(['/localizacao-detalhe']);
           },
           error: (err) => {
+            this.isLoading = false;
             console.error('Erro ao atualizar localização:', err);
             alert('Erro ao atualizar localização.');
           }
@@ -119,16 +124,19 @@ export class LocalizacaoComponent implements OnInit {
       } else {
         this.localizacaoService.cadastrarLocalizacao(localizacaoDTO).subscribe({
           next: () => {
+            this.isLoading = false;
             alert('Localização cadastrada com sucesso!');
             this.router.navigate(['/localizacao-detalhe']);
           },
           error: (err) => {
+            this.isLoading = false;
             console.error('Erro ao cadastrar localização:', err);
             alert('Erro ao cadastrar localização.');
           }
         });
       }
     } else {
+      this.isLoading = false;
       alert('Preencha todos os campos obrigatórios.');
     }
   }

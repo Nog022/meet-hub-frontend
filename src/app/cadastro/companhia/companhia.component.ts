@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CompanyDTO, CompanhiaService } from './companhia.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
-
+import { cnpj } from 'cpf-cnpj-validator';
 
 
 @Component({
@@ -19,6 +19,7 @@ export class CompanhiaComponent {
   emailDomains: string[] = [];
   isEdicao: boolean = false;
   titulo = 'Cadastro da Instituição';
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -78,6 +79,14 @@ export class CompanhiaComponent {
 
   onSubmit(): void {
     if (this.companyForm.valid) {
+      this.isLoading = true;
+      /*
+      if (!cnpj.isValid(this.companyForm.value.cnpj)) {
+        alert("O CNPJ inserido é invalido, insira um CNPJ valido.");
+        this.isLoading = false;
+        return;
+      }
+      */
       console.log('Formulário válido:', this.companyForm.value);
       const formValues = this.companyForm.getRawValue();
       const userEmail = localStorage.getItem('userEmail');
@@ -93,18 +102,21 @@ export class CompanhiaComponent {
         this.companhiaService.atualizarCompanhia(companyData).subscribe(
           response => {
             console.log('Companhia atualizada com sucesso!', response);
+            this.isLoading = false;
             alert('Companhia atualizada com sucesso!');
             localStorage.setItem('company', JSON.stringify(response));
             this.router.navigate(['/home']);
           },
           error => {
             console.error('Erro ao atualizar companhia:', error);
+            this.isLoading = false;
           }
         )
       }else{
         this.companhiaService.salvarCompanhia(companyData).subscribe(
           response => {
             console.log('Companhia criada com sucesso!', response);
+            this.isLoading = false;
             alert('Companhia criada com sucesso!');
             localStorage.setItem('company', JSON.stringify(response));
 
@@ -119,6 +131,15 @@ export class CompanhiaComponent {
           },
           error => {
             console.error('Erro ao criar companhia:', error);
+            this.isLoading = false;
+            if (error.status === 409 && error.error?.error) {
+              alert(`⚠️ ${error.error.error}`);
+            } else if (error.status === 400) {
+              alert('⚠️ Dados inválidos. Verifique os campos e tente novamente.');
+            } else {
+              alert('❌ Ocorreu um erro inesperado. Tente novamente mais tarde.');
+}
+
           }
         );
       }

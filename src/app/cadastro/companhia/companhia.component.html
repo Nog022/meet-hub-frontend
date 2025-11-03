@@ -5,7 +5,7 @@
 
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>CNPJ</mat-label>
-    <input matInput formControlName="cnpj">
+    <input matInput formControlName="cnpj" maxlength="14">
   </mat-form-field>
 
 
@@ -44,8 +44,17 @@
 
     <br>
 
-    <button mat-raised-button color="primary" type="submit">
-      Enviar
+    <button mat-raised-button color="primary" type="submit" [disabled]="companyForm.invalid || isLoading">
+      <ng-container *ngIf="!isLoading">Enviar</ng-container>
+        <ng-container *ngIf="isLoading">
+          <mat-progress-spinner
+            diameter="20"
+            mode="indeterminate"
+            color="accent"
+            [strokeWidth]="3"
+            style="display: inline-block; vertical-align: middle;">
+        </mat-progress-spinner>
+      </ng-container>
     </button>
 
   </form>
