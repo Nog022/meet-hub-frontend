@@ -15,6 +15,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -36,9 +37,11 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
+      this.isLoading = true;
+
       this.loginService.login(this.loginForm.value).subscribe(
         response => {
-
+          this.isLoading = false;
           localStorage.setItem('token', response.token);
           localStorage.setItem('userEmail', response.email);
           localStorage.setItem('company', JSON.stringify(response.institutionDTO));
@@ -62,6 +65,7 @@ export class LoginComponent {
         },
         error => {
           console.error('Erro no login', error);
+          this.isLoading = false;
           alert('Login inválido. Verifique suas credenciais.');
         }
       );

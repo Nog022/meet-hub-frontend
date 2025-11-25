@@ -4,8 +4,8 @@
       <a mat-list-item routerLink="/home">Home</a>
 
       <a *ngIf="isAdmin" mat-list-item routerLink="/cadastro/companhia">Instituição</a>
-      <a *ngIf="isAdmin" mat-list-item routerLink="/localizacao-detalhe">Localização</a>
-      <a *ngIf="isAdmin" mat-list-item routerLink="/sala-detalhe">Salas</a>
+      <a  mat-list-item routerLink="/localizacao-detalhe">Localização</a>
+      <a  mat-list-item routerLink="/sala-detalhe">Salas</a>
 
       <button mat-list-item (click)="logout()">Logout</button>
     </mat-nav-list>

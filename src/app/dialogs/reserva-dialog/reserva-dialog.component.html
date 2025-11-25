@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Reservas do dia {{ data.data | date:'dd/MM/yyyy' }}</h2>
+
+<mat-dialog-content>
+  <div *ngIf="data.reservas && data.reservas.length > 0; else semReservas">
+    <mat-list>
+      <mat-list-item *ngFor="let reserva of data.reservas">
+        <div class="reserva-item">
+          <strong>{{ reserva.personName }}</strong>
+          <div class="horario">{{ reserva.startTime }} às {{ reserva.endTime }}</div>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <ng-template #semReservas>
+    <p class="sem-reservas-msg">Nenhuma reserva para este dia.</p>
+  </ng-template>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Fechar</button>
+</mat-dialog-actions>

@@ -19,6 +19,7 @@ export class SalaComponent implements OnInit {
   recursosSelecionados: string[] = [];
   titulo = 'Cadastrar Sala';
   idEdicao: number | null = null;
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,6 +27,7 @@ export class SalaComponent implements OnInit {
     private router: Router,
     private localizacaoService: LocalizacaoService,
     private route: ActivatedRoute
+
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +87,7 @@ export class SalaComponent implements OnInit {
 
   onSubmit(): void {
     if (this.formSala.valid) {
+      this.isLoading = true;
       const salaDTO = {
         id: this.idEdicao ?? null,
         name: this.formSala.value.name,
@@ -97,10 +100,12 @@ export class SalaComponent implements OnInit {
 
         this.salaService.updateSala(salaDTO).subscribe({
           next: () => {
+            this.isLoading = false;
             alert('Sala atualizada com sucesso!');
             this.router.navigate(['/sala-detalhe']);
           },
           error: (err) => {
+            this.isLoading = false;
             console.error('Erro ao atualizar sala:', err);
             alert('Erro ao atualizar sala.');
           }
@@ -109,17 +114,20 @@ export class SalaComponent implements OnInit {
         this.salaService.cadastrarSala(salaDTO).subscribe({
           next: () => {
             alert('Sala cadastrada com sucesso!');
+            this.isLoading = false;
             this.formSala.reset();
             this.recursosSelecionados = [];
             this.router.navigate(['/sala-detalhe']);
           },
           error: (err) => {
+            this.isLoading = false;
             console.error('Erro ao salvar sala:', err);
             alert('Erro ao salvar sala.');
           }
         });
       }
     } else {
+
       alert('Preencha todos os campos obrigatórios.');
     }
   }

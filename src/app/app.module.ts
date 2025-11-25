@@ -28,6 +28,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { ReservaDialogComponent } from './dialogs/reserva-dialog/reserva-dialog.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
     HomeComponent,
     LocalizacaoDetalheComponent,
     SalaDetalheComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ReservaDialogComponent
 
   ],
   imports: [
