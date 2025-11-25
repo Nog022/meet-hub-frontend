@@ -68,6 +68,7 @@ export class RegisterComponent{
             }
           });
         } else {
+          alert('Preencha todos os campos obrigatórios antes de continuar.');
           console.warn('Formulário inválido');
         }
 
